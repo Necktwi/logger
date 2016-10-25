@@ -1,8 +1,8 @@
 .bzrignore
 .bzr/
 build/
+QtBuild/
 dist/
-nbproject/private/private.xml
 .DS_Store
 nbproject/.DS_Store
 

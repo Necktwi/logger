@@ -12,7 +12,7 @@
  */
 
 #include "logger.h"
-#include <base/mystdlib.h>
+//#include <base/mystdlib.h>
 #include <cstdarg>
 #include <stdio.h>
 #include <unistd.h>
