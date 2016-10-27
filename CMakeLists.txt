@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 3.6)
 project (logger)
 set (logger_VERSION_MAJOR 1)
 set (logger_VERSION_MINOR 0)
@@ -17,14 +17,17 @@ configure_file(
 # so that we will find TutorialConfig.h
 include_directories("${PROJECT_BINARY_DIR}")
 
-set (GCC_COVERAGE_COMPILE_FLAGS "-std=c++14")
-set (GCC_COVERAGE_LINK_FLAGS "-lbase")
+set (GCC_COVERAGE_COMPILE_FLAGS "-std=c++14 -weak_library")
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} "/usr/local/include/ferryfair")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
+file(GLOB HEADERS *.h)
 file(GLOB SOURCES *.cpp)
-add_library(loggerStatic STATIC ${SOURCES})
-add_library(logger SHARED ${SOURCES})
+link_directories(/usr/local/lib)
+add_library(loggerStatic STATIC ${SOURCES} ${HEADERS})
+target_link_libraries(loggerStatic base)
+add_library(logger SHARED ${SOURCES} ${HEADERS})
+target_link_libraries(logger base)
 set_target_properties(loggerStatic PROPERTIES OUTPUT_NAME logger)
 set_target_properties(logger
     PROPERTIES
@@ -37,7 +40,6 @@ set_target_properties(loggerStatic
     SOVERSION ${logger_VERSION_MAJOR}
     )
 install(TARGETS ${PROJECT_NAME} DESTINATION lib)
-file(GLOB HEADERS *.h)
 install(FILES ${HEADERS} DESTINATION include/${Umbrella})
 install(FILES "${PROJECT_BINARY_DIR}/loggerConfig.h"
     DESTINATION include/${Umbrella})

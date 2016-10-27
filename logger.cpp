@@ -12,17 +12,19 @@
  */
 
 #include "logger.h"
-//#include <base/mystdlib.h>
 #include <cstdarg>
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
 #ifdef __CYGWIN__
 #include <pthread.h>
+#elif __APPLE__
+#include <thread>
 #else
 #include <sys/syscall.h>
 #endif
 #include <stdlib.h>
+#include <base/FerryTimeStamp.h>
 
 /**
  * Log level count
@@ -69,7 +71,7 @@ static const char * const log_type_names[] = {
 	return 0;
 };*/
 
-int _ff_log(const char* func, _ff_log_type allowedType, _ff_log_type t,
+int _ff_log(const char* func, FF_LOG_TYPE allowedType, FF_LOG_TYPE t,
 		unsigned int allowedLevel, unsigned int l, const char* format, ...) {
 	char buf[1000];
 	unsigned int nnl = 1 << 31;
@@ -86,14 +88,14 @@ int _ff_log(const char* func, _ff_log_type allowedType, _ff_log_type t,
 	va_end(ap);
 
 	char buf2[300];
-	unsigned long long now;
 	int n;
-
 	buf2[0] = '\0';
+    FerryTimeStamp fTS;
+    fTS.Update();
 	for (n = 0; n < FFLT_COUNT; n++)
 		if (t == (1 << n)) {
 			//now = time_in_microseconds() / 100;
-			sprintf(buf2, "[%s %s %s]: ", (const char*) getTime().c_str(),
+			sprintf(buf2, "[%s %s %s]: ", (const char*) fTS.GetTime().c_str(),
 					log_type_names[n], func);
 			break;
 		}
@@ -106,8 +108,8 @@ int _ff_log(const char* func, _ff_log_type allowedType, _ff_log_type t,
 	return 0;
 };
 
-int _ff_log(_ff_log_type allowedType,
-		_ff_log_type t,
+int _ff_log(FF_LOG_TYPE allowedType,
+		FF_LOG_TYPE t,
 		unsigned int allowedLevel,
 		unsigned int l,
 		const char* func,
@@ -129,17 +131,19 @@ int _ff_log(_ff_log_type allowedType,
 	va_end(ap);
 
 	char buf2[300];
-	unsigned long long now;
 	int n;
-
 	buf2[0] = '\0';
-	for (n = 0; n < FFLT_COUNT; n++)
+    FerryTimeStamp fTS;
+    fTS.Update();
+    for (n = 0; n < FFLT_COUNT; n++)
 		if (t == (1 << n)) {
 			//now = time_in_microseconds() / 100;
-			sprintf(buf2, "[%s %s %05ld %s:%s:%d]: ", (const char*) getuTime().
+			sprintf(buf2, "[%s %s %05ld %s:%s:%d]: ", (const char*) fTS.GetUTime().
 					c_str(), log_type_names[n],
 #ifdef __CYGWIN__
 					pthread_self(),
+#elif __APPLE__
+                    std::hash<std::thread::id>()(std::this_thread::get_id()),
 #else
 					syscall(SYS_gettid),
 #endif
@@ -156,7 +160,7 @@ int _ff_log(_ff_log_type allowedType,
 	return 0;
 };
 
-int _ff_log_contnu(_ff_log_type allowedType, _ff_log_type t,
+int _ff_log_contnu(FF_LOG_TYPE allowedType, FF_LOG_TYPE t,
 		unsigned int allowedLevel,
 		unsigned int l,
 		const char* format,
@@ -184,19 +188,19 @@ int _ff_log_contnu(_ff_log_type allowedType, _ff_log_type t,
 	return 0;
 };
 
-bool _ffl_level(_ff_log_type allowedType, _ff_log_type t,
+bool _ffl_level(FF_LOG_TYPE allowedType, FF_LOG_TYPE t,
 		unsigned int allowedLevel,
 		unsigned int l) {
-	if ((allowedType & t == t)&&(allowedLevel & l == l)) {
+	if (((allowedType & t) == t)&&((allowedLevel & l) == l)) {
 		return true;
 	}
 	return false;
 };
 
-void SetLogType(_ff_log_type t) {
-	fflAllowedType = t;
-}
-
-void SetLogLevel(unsigned int l) {
-	fflAllowedLevel = l;
-}
+//void SetLogType(FF_LOG_TYPE t) {
+//	fflAllowedType = t;
+//}
+//
+//void SetLogLevel(unsigned int l) {
+//	fflAllowedLevel = l;
+//}

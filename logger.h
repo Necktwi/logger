@@ -11,7 +11,7 @@
 /**
  * 
  */
-enum _ff_log_type {
+enum FF_LOG_TYPE {
 	FFL_ERR = 1 << 0,
 	FFL_WARN = 1 << 1,
 	FFL_NOTICE = 1 << 2,
@@ -23,30 +23,30 @@ enum _ff_log_type {
 	FFL_CLIENT = 1 << 8,
 	FFL_LATENCY = 1 << 9
 };
-extern _ff_log_type fflAllowedType;
+extern FF_LOG_TYPE fflAllowedType;
 extern unsigned int fflAllowedLevel;
-void SetLogType(_ff_log_type t);
+void SetLogType(FF_LOG_TYPE t);
 void SetLogLevel(unsigned int l);
 
 /**
  * initiate ff_log_type ff_log_level them in your project
  */
-int _ff_log(_ff_log_type t, const char* format, ...);
+int _ff_log(FF_LOG_TYPE t, const char* format, ...);
 int _ff_log(const char* func,
-		_ff_log_type allowedType,
-		_ff_log_type t,
+		FF_LOG_TYPE allowedType,
+		FF_LOG_TYPE t,
 		unsigned int allowedLevel,
 		unsigned int l,
 		const char* format, ...);
-int _ff_log(_ff_log_type allowedType,
-		_ff_log_type t,
+int _ff_log(FF_LOG_TYPE allowedType,
+		FF_LOG_TYPE t,
 		unsigned int allowedLevel,
 		unsigned int l,
 		const char* func,
 		const char* file_name,
 		int line_no,
 		const char* format, ...);
-int _ff_log_contnu(_ff_log_type allowedType, _ff_log_type t,
+int _ff_log_contnu(FF_LOG_TYPE allowedType, FF_LOG_TYPE t,
 		unsigned int allowedLevel,
 		unsigned int l,
 		const char* format, ...);
@@ -116,7 +116,7 @@ int _ff_log_contnu(_ff_log_type allowedType, _ff_log_type t,
 
 #endif
 
-bool _ffl_level(_ff_log_type allowedType, _ff_log_type t,
+bool _ffl_level(FF_LOG_TYPE allowedType, FF_LOG_TYPE t,
 		unsigned int allowedLevel,
 		unsigned int l);
 
