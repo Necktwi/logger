@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.6)
+cmake_minimum_required (VERSION 3.5)
 project (logger)
 set (logger_VERSION_MAJOR 1)
 set (logger_VERSION_MINOR 0)
@@ -17,7 +17,7 @@ configure_file(
 # so that we will find TutorialConfig.h
 include_directories("${PROJECT_BINARY_DIR}")
 
-set (GCC_COVERAGE_COMPILE_FLAGS "-std=c++14 -weak_library")
+set (GCC_COVERAGE_COMPILE_FLAGS "-std=c++14")
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} "/usr/local/include/ferryfair")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
