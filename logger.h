@@ -6,7 +6,7 @@
  */
 
 #ifndef LOGGER_H
-#define LOGGER_H
+#define LOGGER_H`
 
 /**
  * 
@@ -64,7 +64,7 @@ int _ff_log_contnu(FF_LOG_TYPE allowedType, FF_LOG_TYPE t,
  */
 #ifdef _DEBUG
 
-#define ffl_debug(allowedType,allowedLevel,level,...) _ff_log(allowedType,FFL_DEBUG, allowedLevel, level, __FUNCTION__, __FILE__, __LINE__, __VA_ARGS__)
+#define ffl_debug(level,...) _ff_log(fflAllowedType,FFL_DEBUG, fflAllowedLevel, level, __FUNCTION__, __FILE__, __LINE__, __VA_ARGS__)
 #define ffl_parser(...) _ff_log(FFL_PARSER, __VA_ARGS__)
 #define ffl_header(...)  _ff_log(FFL_HEADER, __VA_ARGS__)
 #define ffl_ext(...)  _ff_log(FFL_EXT, __VA_ARGS__)
