@@ -24,7 +24,7 @@
 #include <sys/syscall.h>
 #endif
 #include <stdlib.h>
-#include <base/FerryTimeStamp.h>
+#include <ferrybase/FerryTimeStamp.h>
 
 /**
  * Log level count

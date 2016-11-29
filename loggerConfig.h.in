@@ -1,3 +1,0 @@
-// the configured options and settings for logger
-#define logger_VERSION_MAJOR @logger_VERSION_MAJOR@
-#define logger_VERSION_MINOR @logger_VERSION_MINOR@
