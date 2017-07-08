@@ -204,3 +204,7 @@ bool _ffl_level(FF_LOG_TYPE allowedType, FF_LOG_TYPE t,
 //void SetLogLevel(unsigned int l) {
 //	fflAllowedLevel = l;
 //}
+
+void PrintLogTypeNLevel(){
+    printf("fflAllowedType: %08X, fflAllowedLevel: %08X\n", (unsigned int)fflAllowedType, (unsigned int)fflAllowedLevel);
+}
