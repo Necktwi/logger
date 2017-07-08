@@ -79,8 +79,6 @@ int _ff_log(const char* func, FF_LOG_TYPE t,
 	l &= ~nnl;
 	va_list ap;
 
-    printf("fflType: %08X, fflLevel: %08X\n", (unsigned int)l, (unsigned int)t);
-    printf("fflAllowedType: %08X, fflAllowedLevel: %08X\n", (unsigned int)fflAllowedType, (unsigned int)fflAllowedLevel);
     if (!(fflAllowedType & t) || !(fflAllowedLevel & l))
 		return 0;
 
@@ -122,8 +120,6 @@ int _ff_log(FF_LOG_TYPE t,
 	l &= ~nnl;
 	va_list ap;
 
-    printf("fflType: %08X, fflLevel: %08X\n", (unsigned int)l, (unsigned int)t);
-    printf("fflAllowedType: %08X, fflAllowedLevel: %08X\n", (unsigned int)fflAllowedType, (unsigned int)fflAllowedLevel);
     if (!(fflAllowedType & t) || !(fflAllowedLevel & l))
 		return 0;
     va_start(ap, format);
