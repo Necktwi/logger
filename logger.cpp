@@ -71,15 +71,15 @@ static const char * const log_type_names[] = {
 	return 0;
 };*/
 
-int _ff_log(const char* func, FF_LOG_TYPE allowedType, FF_LOG_TYPE t,
-		unsigned int allowedLevel, unsigned int l, const char* format, ...) {
+int _ff_log(const char* func, FF_LOG_TYPE t,
+            unsigned int l, const char* format, ...) {
 	char buf[1000];
 	unsigned int nnl = 1 << 31;
 	bool no_new_line = (l & nnl) == nnl;
 	l &= ~nnl;
 	va_list ap;
 
-	if (!(allowedType & t) || !(allowedLevel & l))
+	if (!(fflAllowedType & t) || !(fflAllowedLevel & l))
 		return 0;
 
 	va_start(ap, format);
@@ -108,10 +108,8 @@ int _ff_log(const char* func, FF_LOG_TYPE allowedType, FF_LOG_TYPE t,
 	return 0;
 };
 
-int _ff_log(FF_LOG_TYPE allowedType,
-		FF_LOG_TYPE t,
-		unsigned int allowedLevel,
-		unsigned int l,
+int _ff_log(FF_LOG_TYPE t,
+        unsigned int l,
 		const char* func,
 		const char* file_name,
 		int line_no,
@@ -122,7 +120,7 @@ int _ff_log(FF_LOG_TYPE allowedType,
 	l &= ~nnl;
 	va_list ap;
 
-	if (!(allowedType & t) || !(allowedLevel & l))
+	if (!(fflAllowedType & t) || !(fflAllowedLevel & l))
 		return 0;
 
 	va_start(ap, format);
@@ -160,8 +158,7 @@ int _ff_log(FF_LOG_TYPE allowedType,
 	return 0;
 };
 
-int _ff_log_contnu(FF_LOG_TYPE allowedType, FF_LOG_TYPE t,
-		unsigned int allowedLevel,
+int _ff_log_contnu(FF_LOG_TYPE t,
 		unsigned int l,
 		const char* format,
 		...) {
@@ -171,7 +168,7 @@ int _ff_log_contnu(FF_LOG_TYPE allowedType, FF_LOG_TYPE t,
 	l &= ~nnl;
 	va_list ap;
 
-	if (!(allowedType & t) || !(allowedLevel & l))
+	if (!(fflAllowedType & t) || !(fflAllowedLevel & l))
 		return 0;
 
 	va_start(ap, format);
@@ -188,10 +185,9 @@ int _ff_log_contnu(FF_LOG_TYPE allowedType, FF_LOG_TYPE t,
 	return 0;
 };
 
-bool _ffl_level(FF_LOG_TYPE allowedType, FF_LOG_TYPE t,
-		unsigned int allowedLevel,
+bool _ffl_level(FF_LOG_TYPE t,
 		unsigned int l) {
-	if (((allowedType & t) == t)&&((allowedLevel & l) == l)) {
+	if (((fflAllowedType & t) == t)&&((fflAllowedLevel & l) == l)) {
 		return true;
 	}
 	return false;
