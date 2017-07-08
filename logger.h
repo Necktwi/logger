@@ -27,6 +27,7 @@ extern FF_LOG_TYPE fflAllowedType;
 extern unsigned int fflAllowedLevel;
 void SetLogType(FF_LOG_TYPE t);
 void SetLogLevel(unsigned int l);
+void PrintLogTypeNLevel();
 
 /**
  * initiate ff_log_type ff_log_level them in your project
