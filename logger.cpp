@@ -1,25 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
- * File:   logger.cpp
- * Author: gowtham
- *
- * Created on 20 August, 2016, 8:59 PM
+ * Gowtham Kudupudi 20/08/2016
+ * MIT License
  */
-
+                                                                                
 #include "logger.h"
 #include <cstdarg>
 #include <stdio.h>
+#if defined(unix) || defined(__unix__) || defined(__unix)
 #include <unistd.h>
+#elif defined(_WIN64) || defined(_WIN32)
+#include <io.h>
+#endif
 #include <sys/types.h>
 #ifdef __CYGWIN__
 #include <pthread.h>
 #elif __APPLE__
 #include <thread>
+#elif _WIN64 || _WIN32
+#include <Windows.h>
 #else
 #include <sys/syscall.h>
 #endif
@@ -108,21 +106,18 @@ int _ff_log(const char* func, FF_LOG_TYPE t,
 	return 0;
 };
 
-int _ff_log(FF_LOG_TYPE t,
-        unsigned int l,
-		const char* func,
-		const char* file_name,
-		int line_no,
-		const char* format, ...) {
+int _ff_log (FF_LOG_TYPE t, unsigned int l, const char* func,
+  const char* file_name, int line_no, const char* format, ...
+) {
 	char buf[1000];
 	unsigned int nnl = 1 << 31;
 	bool no_new_line = (l & nnl) == nnl;
 	l &= ~nnl;
 	va_list ap;
 
-    if (!(fflAllowedType & t) || !(fflAllowedLevel & l))
+  if (!(fflAllowedType & t) || !(fflAllowedLevel & l))
 		return 0;
-    va_start(ap, format);
+  va_start(ap, format);
 	vsnprintf(buf, sizeof (buf), format, ap);
 	buf[sizeof (buf) - 1] = '\0';
 	va_end(ap);
@@ -130,25 +125,28 @@ int _ff_log(FF_LOG_TYPE t,
 	char buf2[300];
 	int n;
 	buf2[0] = '\0';
-    FerryTimeStamp fTS;
-    fTS.Update();
-    for (n = 0; n < FFLT_COUNT; n++)
+  FerryTimeStamp fTS;
+  fTS.Update();
+  for (n = 0; n < FFLT_COUNT; n++)
 		if (t == (1 << n)) {
 			//now = time_in_microseconds() / 100;
-			sprintf(buf2, "[%s %s %05ld %s:%s:%d]: ", (const char*) fTS.GetUTime().
-					c_str(), log_type_names[n],
+			sprintf(buf2, "[%s %s %05ld %s:%s:%d]: ",
+        (const char*) fTS.GetUTime().c_str(), log_type_names[n],
 #ifdef __CYGWIN__
-					pthread_self(),
+			  pthread_self(),
 #elif __APPLE__
-                    std::hash<std::thread::id>()(std::this_thread::get_id()),
+        std::hash<std::thread::id>()(std::this_thread::get_id()),
+#elif _WIN64 || _WIN32
+        GetCurrentThreadId(),
 #else
-					syscall(SYS_gettid),
+			  syscall(SYS_gettid),
 #endif
-					func, file_name, line_no);
+			  func, file_name, line_no
+      );
 			break;
 		}
 
-	if (no_new_line) {
+  if (no_new_line) {
 		fprintf(stderr, "%s%s", buf2, buf);
 	} else {
 		fprintf(stderr, "%s%s\n", buf2, buf);
