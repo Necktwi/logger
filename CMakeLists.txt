@@ -29,7 +29,7 @@ set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS
 file(GLOB HEADERS *.h)
 file(GLOB SOURCES *.cpp)
 include_directories(${PROJECT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR} "../" ${CMAKE_INSTALL_FULL_INCLUDEDIR}/${Umbrella})
-link_directories("${CMAKE_INSTALL_FULL_LIBDIR}" "../ferrybase/buildWin64/Debug")
+link_directories("${CMAKE_INSTALL_FULL_LIBDIR}" "../ferrybase/build" "../ferrybase/buildWin64/Debug")
 MESSAGE("CMAKE_INSTALL_FULL_LIBDIR ${CMAKE_INSTALL_FULL_LIBDIR}")
 add_library(${PROJECT_NAME}Static STATIC ${SOURCES} ${HEADERS})
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS})
