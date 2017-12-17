@@ -1,16 +1,14 @@
-/* 
- * File:   logger.h
- * Author: Gowtham
- *
- * Created on June 24, 2014, 2:25 PM
- */
+/**
+ * Gowtham Kudupudi 24/06/2014
+ * MIT License
+**/
 
 #ifndef LOGGER_H
 #define LOGGER_H
 
-/**
- * 
- */
+#include "config.h"
+
+//DLLExport
 enum FF_LOG_TYPE {
 	FFL_ERR = 1 << 0,
 	FFL_WARN = 1 << 1,
@@ -23,26 +21,35 @@ enum FF_LOG_TYPE {
 	FFL_CLIENT = 1 << 8,
 	FFL_LATENCY = 1 << 9
 };
+DLLExport
 extern FF_LOG_TYPE fflAllowedType;
+DLLExport
 extern unsigned int fflAllowedLevel;
+//DLLExport
 void SetLogType(FF_LOG_TYPE t);
+//DLLExport
 void SetLogLevel(unsigned int l);
+//DLLExport
 void PrintLogTypeNLevel();
 
 /**
  * initiate ff_log_type ff_log_level them in your project
  */
+//DLLExport
 int _ff_log(FF_LOG_TYPE t, const char* format, ...);
+//DLLExport
 int _ff_log(const char* func,
 		FF_LOG_TYPE t,
 		unsigned int l,
 		const char* format, ...);
+//DLLExport
 int _ff_log(FF_LOG_TYPE t,
 		unsigned int l,
 		const char* func,
 		const char* file_name,
 		int line_no,
 		const char* format, ...);
+//DLLExport
 int _ff_log_contnu(FF_LOG_TYPE t,
 		unsigned int l,
 		const char* format, ...);
@@ -112,6 +119,7 @@ int _ff_log_contnu(FF_LOG_TYPE t,
 
 #endif
 
+//DLLExport
 bool _ffl_level(FF_LOG_TYPE allowedType, FF_LOG_TYPE t,
 		unsigned int allowedLevel,
 		unsigned int l);
