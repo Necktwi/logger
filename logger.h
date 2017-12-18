@@ -21,9 +21,9 @@ enum FF_LOG_TYPE {
 	FFL_CLIENT = 1 << 8,
 	FFL_LATENCY = 1 << 9
 };
-DLLExport
+//DLLExport
 extern FF_LOG_TYPE fflAllowedType;
-DLLExport
+//DLLExport
 extern unsigned int fflAllowedLevel;
 //DLLExport
 void SetLogType(FF_LOG_TYPE t);
