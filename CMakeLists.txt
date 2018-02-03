@@ -1,6 +1,9 @@
+# list does not recognize sub-command FILTER for version 3.5
 cmake_minimum_required (VERSION 3.5)
 include(GNUInstallDirs)
 project (logger)
+message ("Generating build procedure for ${PROJECT_NAME} ...")
+
 IF (DEFINED _DEBUG)
 ADD_DEFINITIONS(-D_DEBUG=${_DEBUG})
 ENDIF()
@@ -24,7 +27,9 @@ else ()
   string(TOUPPER "${LINKAGE}" LINKAGE)
 endif ()
 
-set (GCC_COVERAGE_COMPILE_FLAGS "-std=c++14")
+set (GCC_COVERAGE_COMPILE_FLAGS "-pthread")
+set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (GCC_COVERAGE_LINK_FLAGS "-fPIC -Wl,-unresolved-symbols=ignore-in-shared-libs")
 if (DEFINED _DEBUG)
   set (GCC_COVERAGE_COMPILE_FLAGS "${GCC_COVERAGE_COMPILE_FLAGS} -g -O0")
