@@ -1,6 +1,7 @@
 .bzrignore
 .bzr/
-build*/
+**/build*/
+**/Build*/
 QtBuild/
 BuildXcode/
 dist/
@@ -17,4 +18,8 @@ nbactions.xml
 nb-configuration.xml
 
 vgcore.*
+
+# macOS
+**/.DS_*
+**/._*
 
