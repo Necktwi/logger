@@ -1,0 +1,41 @@
+{
+  "version": "0.2.1",
+  "defaults": {},
+  "configurations": [
+   {
+      "type": "cppdbg",
+      "name": "VS_logger",
+      "project": "CMakeLists.txt",
+      "cwd": "~/Workspace/logger/Build/VS/",
+      "program": "~/Workspace/logger/Build/VS/logger",
+      "args": [
+         "-s",
+         "normal"
+      ],
+      "MIMode": "gdb",
+      "externalConsole": true,
+      "remoteMachineName": "192.168.2.23",
+      "pipeTransport": {
+         "pipeProgram": "${debugInfo.shellexecPath}",
+         "pipeArgs": [
+            "/s",
+            "${debugInfo.remoteMachineId}",
+            "/p",
+            "${debugInfo.parentProcessId}",
+            "/c",
+            "${debuggerCommand}",
+            "--tty=${debugInfo.tty}"
+         ],
+         "debuggerPath": "/usr/local/bin/sudo-gdb"
+      },
+      "setupCommands": [
+         {
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+         }
+      ],
+      "visualizerFile": "${debugInfo.linuxNatvisPath}",
+      "showDisplayString": true
+   }
+  ]
+}
