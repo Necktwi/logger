@@ -9,7 +9,7 @@ string (REPLACE ${CMAKE_CURRENT_SOURCE_DIR} "" SRC_RLTV_BLD_DIR
    ${PROJECT_BINARY_DIR}
 )
 message ("SRC_RLTV_BLD_DIR: ${SRC_RLTV_BLD_DIR}")
-string (REPLACE "/Build" "" BUILD_TARGET ${SRC_RLTV_BLD_DIR})
+string (REPLACE "/build" "" BUILD_TARGET ${SRC_RLTV_BLD_DIR})
 if (${SRC_RLTV_BLD_DIR})
    string (REPLACE "/build" "" BUILD_TARGET ${BUILD_TARGET})
 endif ()
@@ -17,7 +17,7 @@ message ("BUILD_TARGET: ${BUILD_TARGET}")
 
 if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../ferrbase")
    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../ferrybase
-      ${CMAKE_CURRENT_SOURCE_DIR}/../ferrybase/build${BUILD_TARGET})
+      ${CMAKE_CURRENT_SOURCE_DIR}/../ferrybase/${BUILD_TARGET})
 endif ()
 IF (DEFINED _DEBUG)
 ADD_DEFINITIONS(-D_DEBUG=${_DEBUG})
@@ -61,9 +61,9 @@ include_directories(${PROJECT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR} "../"
 message("CMAKE_GENERATOR: ${CMAKE_GENERATOR} CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 link_directories("${CMAKE_INSTALL_FULL_LIBDIR}")
 if(CMAKE_CONFIGURATION_TYPES)
-  link_directories("../ferrybase/build${BUILD_TARGET}/$(ConfigurationName)")
+  link_directories("../ferrybase/${BUILD_TARGET}/$(ConfigurationName)")
 else(CMAKE_CONFIGURATION_TYPES)
-  link_directories("../ferrybase/build${BUILD_TARGET}")
+  link_directories("../ferrybase/${BUILD_TARGET}")
 endif()
 MESSAGE("CMAKE_INSTALL_FULL_LIBDIR ${CMAKE_INSTALL_FULL_LIBDIR}")
 

@@ -22,6 +22,7 @@ enum FF_LOG_TYPE {
 	FFL_LATENCY = 1 << 9
 };
 //DLLExport
+//Can be set only during compile time
 extern FF_LOG_TYPE fflAllowedType;
 //DLLExport
 extern unsigned int fflAllowedLevel;
