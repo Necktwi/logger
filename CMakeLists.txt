@@ -14,7 +14,7 @@ message ("BUILD_TARGET: ${BUILD_TARGET}")
 
 if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../ferrbase")
    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../ferrybase
-      ${CMAKE_CURRENT_SOURCE_DIR}/../ferrybase/${BUILD_TARGET})
+      ${CMAKE_CURRENT_SOURCE_DIR}/../ferrybase/${SRC_RLTV_BLD_DIR})
 endif ()
 IF (DEFINED _DEBUG)
 ADD_DEFINITIONS(-D_DEBUG=${_DEBUG})
