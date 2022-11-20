@@ -6,6 +6,7 @@ QtBuild/
 BuildXcode/
 dist/
 *.user
+tmp/
 
 nbproject/private/
 build/
