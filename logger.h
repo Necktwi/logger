@@ -25,7 +25,7 @@ enum FF_LOG_TYPE {
 //Can be set only during compile time
 extern FF_LOG_TYPE fflAllowedType;
 //DLLExport
-extern unsigned int fflAllowedLevel;
+extern unsigned int fflAllowedBlks;
 //DLLExport
 void SetLogType(FF_LOG_TYPE t);
 //DLLExport

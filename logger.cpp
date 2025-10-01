@@ -77,7 +77,7 @@ int _ff_log(const char* func, FF_LOG_TYPE t,
 	l &= ~nnl;
 	va_list ap;
 
-    if (!(fflAllowedType & t) || !(fflAllowedLevel & l))
+    if (!(fflAllowedType & t) || !(fflAllowedBlks & l))
 		return 0;
 
 	va_start(ap, format);
@@ -115,7 +115,7 @@ int _ff_log (FF_LOG_TYPE t, unsigned int l, const char* func,
 	l &= ~nnl;
 	va_list ap;
 
-  if (!(fflAllowedType & t) || !(fflAllowedLevel & l))
+  if (!(fflAllowedType & t) || !(fflAllowedBlks & l))
 		return 0;
   va_start(ap, format);
 	vsnprintf(buf, sizeof (buf), format, ap);
@@ -160,31 +160,23 @@ int _ff_log_contnu(FF_LOG_TYPE t,
 		const char* format,
 		...) {
 	char buf[1000];
-	unsigned int nnl = 1 << 31;
-	bool no_new_line = (l & nnl) == nnl;
-	l &= ~nnl;
 	va_list ap;
 
-	if (!(fflAllowedType & t) || !(fflAllowedLevel & l))
+	if (!(fflAllowedType & t) || !(fflAllowedBlks & l))
 		return 0;
 
 	va_start(ap, format);
 	vsnprintf(buf, sizeof (buf), format, ap);
 	buf[sizeof (buf) - 1] = '\0';
 	va_end(ap);
-
-	if (no_new_line) {
-		fprintf(stderr, "%s", buf);
-	} else {
-		fprintf(stderr, "%s\n", buf);
-	}
+   fprintf(stderr, "%s", buf);
 	fflush(stderr);
 	return 0;
 };
 
 bool _ffl_level(FF_LOG_TYPE t,
 		unsigned int l) {
-	if (((fflAllowedType & t) == t)&&((fflAllowedLevel & l) == l)) {
+	if (((fflAllowedType & t) == t)&&((fflAllowedBlks & l) == l)) {
 		return true;
 	}
 	return false;
@@ -195,9 +187,9 @@ bool _ffl_level(FF_LOG_TYPE t,
 //}
 //
 //void SetLogLevel(unsigned int l) {
-//	fflAllowedLevel = l;
+//	fflAllowedBlks = l;
 //}
 
 void PrintLogTypeNLevel(){
-    printf("fflAllowedType: %08X, fflAllowedLevel: %08X\n", (unsigned int)fflAllowedType, (unsigned int)fflAllowedLevel);
+    printf("fflAllowedType: %08X, fflAllowedBlks: %08X\n", (unsigned int)fflAllowedType, (unsigned int)fflAllowedBlks);
 }
