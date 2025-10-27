@@ -89,11 +89,11 @@ int _ff_log(const char* func, FF_LOG_TYPE t,
 	int n;
 	buf2[0] = '\0';
     FerryTimeStamp fTS;
-    fTS.Update();
+    fTS.update();
 	for (n = 0; n < FFLT_COUNT; n++)
 		if (t == (1 << n)) {
 			//now = time_in_microseconds() / 100;
-			sprintf(buf2, "[%s %s %s]: ", (const char*) fTS.GetTime().c_str(),
+			sprintf(buf2, "[%s %s %s]: ", (const char*) fTS.getTime().c_str(),
 					log_type_names[n], func);
 			break;
 		}
@@ -126,12 +126,12 @@ int _ff_log (FF_LOG_TYPE t, unsigned int l, const char* func,
 	int n;
 	buf2[0] = '\0';
   FerryTimeStamp fTS;
-  fTS.Update();
+  fTS.update();
   for (n = 0; n < FFLT_COUNT; n++)
 		if (t == (1 << n)) {
 			//now = time_in_microseconds() / 100;
 			sprintf(buf2, "[%s %s %05ld %s:%s:%d]: ",
-        (const char*) fTS.GetUTime().c_str(), log_type_names[n],
+        (const char*) fTS.getUTime().c_str(), log_type_names[n],
 #ifdef __CYGWIN__
 			  pthread_self(),
 #elif __APPLE__
