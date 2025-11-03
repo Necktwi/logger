@@ -107,31 +107,30 @@ int _ff_log(const char* func, FF_LOG_TYPE t,
 };
 
 int _ff_log (FF_LOG_TYPE t, unsigned int l, const char* func,
-  const char* file_name, int line_no, const char* format, ...
-) {
+   const char* file_name, int line_no, const char* format, ...) {
 	char buf[1000];
 	unsigned int nnl = 1 << 31;
 	bool no_new_line = (l & nnl) == nnl;
 	l &= ~nnl;
 	va_list ap;
 
-  if (!(fflAllowedType & t) || !(fflAllowedBlks & l))
+   if (!(fflAllowedType & t) || !(fflAllowedBlks & l))
 		return 0;
-  va_start(ap, format);
-	vsnprintf(buf, sizeof (buf), format, ap);
+   va_start(ap, format);
+   vsnprintf(buf, sizeof (buf), format, ap);
 	buf[sizeof (buf) - 1] = '\0';
 	va_end(ap);
 
 	char buf2[300];
 	int n;
 	buf2[0] = '\0';
-  FerryTimeStamp fTS;
-  fTS.update();
-  for (n = 0; n < FFLT_COUNT; n++)
+   FerryTimeStamp fTS;
+   fTS.update();
+   for (n = 0; n < FFLT_COUNT; n++)
 		if (t == (1 << n)) {
 			//now = time_in_microseconds() / 100;
 			sprintf(buf2, "[%s %s %05ld %s:%s:%d]: ",
-        (const char*) fTS.getUTime().c_str(), log_type_names[n],
+            (const char*) fTS.getUTime().c_str(), log_type_names[n],
 #ifdef __CYGWIN__
 			  pthread_self(),
 #elif __APPLE__
@@ -146,7 +145,7 @@ int _ff_log (FF_LOG_TYPE t, unsigned int l, const char* func,
 			break;
 		}
 
-  if (no_new_line) {
+   if (no_new_line) {
 		fprintf(stderr, "%s%s", buf2, buf);
 	} else {
 		fprintf(stderr, "%s%s\n", buf2, buf);

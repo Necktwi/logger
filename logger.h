@@ -136,4 +136,6 @@ bool _ffl_level(FF_LOG_TYPE allowedType, FF_LOG_TYPE t,
 #define flWrn ffl_warn
 #define flErr ffl_err
 #define flNtcCntnu ffl_notice_contnu
+#define flDbgCntnu ffl_debug_contnu
+#define flInfCntnu ffl_info_contnu
 #endif /* LOGGER_H */
