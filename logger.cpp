@@ -108,14 +108,14 @@ int _ff_log(const char* func, FF_LOG_TYPE t,
 
 int _ff_log (FF_LOG_TYPE t, unsigned int l, const char* func,
    const char* file_name, int line_no, const char* format, ...) {
-	char buf[1000];
-	unsigned int nnl = 1 << 31;
-	bool no_new_line = (l & nnl) == nnl;
-	l &= ~nnl;
-	va_list ap;
-
    if (!(fflAllowedType & t) || !(fflAllowedBlks & l))
 		return 0;
+
+	static constexpr unsigned int nnl = 1 << 31;
+	bool no_new_line = (l & nnl) == nnl;
+	//l &= ~nnl;
+   char buf[1000];
+	va_list ap;
    va_start(ap, format);
    vsnprintf(buf, sizeof (buf), format, ap);
 	buf[sizeof (buf) - 1] = '\0';
@@ -154,16 +154,12 @@ int _ff_log (FF_LOG_TYPE t, unsigned int l, const char* func,
 	return 0;
 };
 
-int _ff_log_contnu(FF_LOG_TYPE t,
-		unsigned int l,
-		const char* format,
-		...) {
-	char buf[1000];
-	va_list ap;
-
+int _ff_log_contnu (FF_LOG_TYPE t, unsigned int l, const char* format, ...) {
 	if (!(fflAllowedType & t) || !(fflAllowedBlks & l))
 		return 0;
 
+   char buf[1000];
+	va_list ap;
 	va_start(ap, format);
 	vsnprintf(buf, sizeof (buf), format, ap);
 	buf[sizeof (buf) - 1] = '\0';
