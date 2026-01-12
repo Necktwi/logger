@@ -69,6 +69,10 @@ static const char * const log_type_names[] = {
 	return 0;
 };*/
 
+FF_LOG_TYPE fflAllowedType;
+//DLLExport
+unsigned int fflAllowedBlks;
+
 int _ff_log(const char* func, FF_LOG_TYPE t,
             unsigned int l, const char* format, ...) {
 	char buf[1000];
