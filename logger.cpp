@@ -73,8 +73,8 @@ FF_LOG_TYPE fflAllowedType;
 //DLLExport
 unsigned int fflAllowedBlks;
 
-int _ff_log(const char* func, FF_LOG_TYPE t,
-            unsigned int l, const char* format, ...) {
+int _ff_log (const char* func, FF_LOG_TYPE t,
+				 unsigned int l, const char* format, ...) {
 	char buf[1000];
 	unsigned int nnl = 1 << 31;
 	bool no_new_line = (l & nnl) == nnl;
